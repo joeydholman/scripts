@@ -5,14 +5,13 @@ function RenameFolder {
     #Get username for home folder
     $SAMName = Get-ADUser -Filter 'cn -eq '$FirstName' and sn -eq '$LastName'' -Properties -SamAccountName
     Write-Output "Renaming user profile folder $SAMName"
-    $RenameProc = Rename-Item -Path "C:\Users\$SAMName" -NewName "$SAMName.old" 2> $RPError
-    if ($RenameProc) {
-        $Mesg = "Success"
+    try {
+        Rename-Item -Path "C:\Users\$SAMName" -NewName "$SAMName.old"
+        Write-Output "Success"
     }
-    else {
-        $Mesg = "Failed`n$RPError"
+    catch {
+        Write-Error $_
     }
-    Write-Output $Mesg
 }
 #Function to delete two registry keys for profile
 function DelRegKeys {
