@@ -1,2 +1,2 @@
 # scripts
-Just some scripts I'm working on
+Some scripts I'm working on
